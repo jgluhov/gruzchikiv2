@@ -4,13 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 var config = require('./config');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var users = require('./routes/users');      
 
-console.log(config.get('database:host'));
-            
 var app = express();
 
 // view engine setup
@@ -24,6 +23,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// database setup
+mongoose.connect(config.get('database:uri'), function(err) {
+    if(err) throw err;
+    if(mongoose.connection.readyState === 1)
+        console.log("We've successfully connected to our database");
+});
 
 app.use('/', routes);
 app.use('/users', users);

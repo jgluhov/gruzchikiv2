@@ -1,6 +1,5 @@
 {
     "database" : {
-        "host" : "127.0.0.1",
-        "port" : 5858
+        "uri" : "mongodb://jgluhov:Mathemat1c1an@ds027751.mongolab.com:27751/heroku_app32607673"        
     }
 }
