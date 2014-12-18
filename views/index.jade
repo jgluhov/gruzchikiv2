@@ -1,5 +1,9 @@
 extends layout
 
+block header
+    include header
 block content
-  h1= title
-  p Welcome to #{title}
+    .jumbotron
+        .container                        
+            h1 #{subtitle.toUpperCase()}    
+    

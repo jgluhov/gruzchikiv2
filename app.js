@@ -6,9 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');
-
+var passport = require('./lib/passport');
+var expressSession = require('express-session');
+var expressFlash = require('express-flash');
+var lessMiddleware = require('less-middleware');
+                       
 var routes = require('./routes/index');
-var users = require('./routes/users');      
+var users = require('./routes/users');
+var create = require('./routes/create');
 
 var app = express();
 
@@ -22,17 +27,30 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // database setup
-mongoose.connect(config.get('database:uri'), function(err) {
+mongoose.connect(config.get('database:url'), function(err) {
     if(err) throw err;
     if(mongoose.connection.readyState === 1)
         console.log("We've successfully connected to our database");
 });
 
+// Authentication setup
+app.use(expressSession({ 
+    secret: 'Mathemat1c1an',
+    saveUninitialized: true,
+    resave: true 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(expressFlash());
+
+// routes
 app.use('/', routes);
 app.use('/users', users);
+app.use('/create', create);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

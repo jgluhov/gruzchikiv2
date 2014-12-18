@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+    .container        
+        form(name="login", class="login-form", action="/login", method="post")            
+            .form-group
+                .input-group
+                    input(type="text", name="username", class="form-control", placeholder="Имя пользователя")
+                    span.input-group-addon.fui-user
+            .form-group
+                .input-group
+                    input(type="password", name="password", class="form-control", placeholder="Пароль")
+                    span.input-group-addon.fui-lock
+            .form-group
+                button(type="submit" class="btn btn-primary btn-lg btn-block") Войти                
+            if message.length
+                p= message
+     

@@ -1,5 +1,5 @@
 {
     "database" : {
-        "uri" : "mongodb://jgluhov:Mathemat1c1an@ds027751.mongolab.com:27751/heroku_app32607673"        
+        "url" : "mongodb://jgluhov:Mathemat1c1an@ds027751.mongolab.com:27751/heroku_app32607673"        
     }
 }
