@@ -52,13 +52,4 @@ block header
                                 a(href='#') Упаковка
                 ul.nav.navbar-nav.navbar-right
                     if user
-                        li.dropdown
-                            a.dropdown-toggle(href='#', data-toggle='dropdown')
-                                | #{user.username}
-                                span.caret
-                            ul.dropdown-menu(role='menu')
-                                li
-                                    a(href='/logout') Выйти
-                    else
-                        li                    
-                            a(href='/login') Войти                    
+                        p.navbar-text Вы вошли как #{user.username}                        
